@@ -1,5 +1,5 @@
 //
-//  StockFavoritesView.swift
+//  StockFavoritesTab.swift
 //  Stock Tracker
 //
 //  Created by Dawson Foushee on 5/19/25.
