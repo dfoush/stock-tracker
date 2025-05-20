@@ -14,7 +14,7 @@ Simple test app using SwiftUI + SwiftData to display stock data, built using Xco
 - Featured tab has the ability to sort by ticker, price change increasing/decreasing
 - Stock list cells were reused between tabs
 - Simple SwiftUI animations were used, and support for light/dark mode by default
-- There is some room for improvement on the UI for the featured section of the stock list, since I focused more on the data side. Ideally this view would do something like an auto scroll, and potentially pin to the top to always show.
+- There is some room for improvement on the UI for the featured section of the stock list, since I focused more on the data side. Ideally this view would do something like an auto scroll, and potentially pin to the top to always show (and also could spend a bit more time/thought on the individual cells since they are a bit boring the way they are).
 
 ## Data Fetching
 Used dependency injection (via the swift package Swinject) for the StockAPI, defaulting to resolve to the LocalStockAPI, which sleeps for 1 second and loads the json. Provided a RemoteStockAPI variant that loads the json from the same file in the Github repo. Some sort of polling would be ideal as a future step here. 
@@ -24,3 +24,9 @@ I had never used SwiftData before, so took the opportunity to try it out here. T
 
 ## Unit testing
 Created simple tests using Swift Testing to verify the persistent store handles adding data, overwriting existing data, and clearing out data. More unit/UI tests could be added around the API responses, lists, etc. 
+
+## Other Considerations
+Some nice to haves that could be considered with more time:
+- Some focus on accessibility
+- A user settings page with customization, and maybe debug options for switching between local/remote, etc
+- With more time/complexity in the app it would be nice to break out things into a coordinator pattern
