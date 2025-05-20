@@ -20,18 +20,18 @@ class RemoteStockAPI: StockAPI {
     
     private func loadFromRemoteData() async -> [Stock] {
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
-            
-            guard let url = URL(string: "https://github.com/dfoush/stock-tracker/Stock%20Tracker/Resources/default_stock_data.json") else {
+            guard let url = URL(string: "https://raw.githubusercontent.com/dfoush/stock-tracker/refs/heads/main/Stock%20Tracker/Resources/default_stock_data.json") else {
                 fatalError("Failed to create URL")
             }
             
             let result = try await URLSession.shared.data(from: url)
             let stocks = try JSONDecoder().decode([Stock].self, from: result.0)
             
+            print("Loaded remote stock data")
+            
             return stocks
         } catch {
-            print("Failed to load from local JSON")
+            print("Failed to load from remote JSON")
             return []
         }
     }

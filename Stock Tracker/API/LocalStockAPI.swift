@@ -20,7 +20,7 @@ class LocalStockAPI: StockAPI {
     
     private func loadFromDefaultData() async -> [Stock] {
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+            try await Task.sleep(nanoseconds: 1_000_000_000)
             
             guard let url = Bundle.main.url(forResource: "default_stock_data", withExtension: "json") else {
                 fatalError("Failed to find embedded json file")
@@ -28,6 +28,8 @@ class LocalStockAPI: StockAPI {
             
             let data = try Data(contentsOf: url)
             let stocks = try JSONDecoder().decode([Stock].self, from: data)
+            
+            print("Loaded local stock data")
             
             return stocks
         } catch {

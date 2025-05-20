@@ -23,7 +23,7 @@ final class DependencyInjection {
     
     func setup() {
         Task {
-            container.register(StockAPI.self) { _ in LocalJSONStockAPI() }
+            container.register(StockAPI.self) { _ in LocalStockAPI() }
         }
     }
 }

@@ -23,26 +23,32 @@ struct StockListTab: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                if (!featuredStocks.isEmpty) {
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 10, ) {
-                            ForEach(featuredStocks) { stock in
-                                StockFeaturedView(stock: stock)
-                                    .frame(width: 70, height: 70)
-                                    .padding()
+            if allStocks.isEmpty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                    .scaleEffect(2.0, anchor: .center)
+            } else {
+                List {
+                    if (!featuredStocks.isEmpty) {
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 10, ) {
+                                ForEach(featuredStocks) { stock in
+                                    StockFeaturedView(stock: stock)
+                                        .frame(width: 70, height: 70)
+                                        .padding()
+                                }
                             }
-                        }
-                    }.scrollIndicators(.hidden)
+                        }.scrollIndicators(.hidden)
+                    }
+                    
+                    ForEach(allStocks) { stock in
+                        StockRowView(stock: stock)
+                    }
                 }
-                
-                ForEach(allStocks) { stock in
-                    StockRowView(stock: stock)
+                .navigationTitle(Text("Stocks"))
+                .refreshable {
+                    await DependencyInjection.shared.container.resolve(StockAPI.self)?.fetchStockData()
                 }
-            }
-            .navigationTitle(Text("Stocks"))
-            .refreshable {
-                await DependencyInjection.shared.container.resolve(StockAPI.self)?.fetchStockData()
             }
         }
     }
